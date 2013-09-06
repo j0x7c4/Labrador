@@ -1,0 +1,4 @@
+2013-09-07 01:49:24,395-crawler.crawl_weibos.179-INFO-Crawl user(1881798702)'s weibos: total page=10, cost time=30 sec, connections=32
+2013-09-07 01:50:58,449-crawler.crawl_weibos.179-INFO-Crawl user(1739412814)'s weibos: total page=83, cost time=84 sec, connections=250
+2013-09-07 01:50:58,449-__init__.main.178-INFO-The task has successfully finished.
+Crawled [user|message]ids: 2, cost time: 0(d)-0(h)-2(m)-4(s), connections: 282
