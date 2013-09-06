@@ -32,8 +32,8 @@ def main(fetcher, **kwargs):
     msg_urls   = kwargs.get('msg_urls', None)
     store_path = kwargs.get('store_path', STORE_PATH)
     window     = kwargs.get('window', None)
-    weibos_storage = kwargs.get('weibos_storage', None)
-    uids_storage = kwargs.get('uids_storage', None)
+    weibos_storage = kwargs.get('weibos_storage', [])
+    uids_storage = kwargs.get('uids_storage', [])
     fetcher.window = window
     
     assert (fetch_data is not None and uids is not None) or (msg_urls is not None)

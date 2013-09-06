@@ -35,9 +35,8 @@ nosetests.xml
 .pydevproject
 
 cookie.txt
-*.csv
 memstorage.py
-src/log/
-exe/file/
-src/file/
-*.log
+src/log/*
+src/account.py
+exe/
+src/file/*

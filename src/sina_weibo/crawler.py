@@ -17,8 +17,8 @@ class ComWeiboCrawler(object):
         self.uid     = kwargs.get('uid', None)
         self.msg_url = kwargs.get('msg_url', None)
         self.window  = kwargs.get('window', None)
-        self.weibos_storage = kwargs.get('weibos_storage', None)
-        self.uids_storage = kwargs.get('uids_storage', None)
+        self.weibos_storage = kwargs.get('weibos_storage', [])
+        self.uids_storage = kwargs.get('uids_storage', [])
 
         self.error = False
         
