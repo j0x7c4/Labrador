@@ -37,4 +37,5 @@ nosetests.xml
 cookie.txt
 src/account.py
 exe/
-
+*.log
+*.csv
