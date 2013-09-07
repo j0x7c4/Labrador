@@ -160,8 +160,9 @@ class ComWeiboCrawler(object):
         parser = ComWeibosParser(self.uid, self.storage, weibos_storage=self.weibos_storage)
         
         num_pages = _crawl(parser, self.uid, page=1)
-                
+
         pages = [i for i in xrange(2, num_pages+1)]
+        """
         if len(pages) > 0:
             n_threads = 5
             
@@ -171,7 +172,7 @@ class ComWeiboCrawler(object):
                 worker_manager.add_job(_crawl, parser, self.uid, pg, num_pages)
             
             worker_manager.wait_all_complete()
-        
+        """
         cost_time = int(time.time() - start_time)
         msg = ('Crawl user(%s)\'s weibos: total page=%s,'
                ' cost time=%s sec, connections=%s' 
