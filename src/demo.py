@@ -9,33 +9,47 @@ import memstorage
 import account
 from thread_pool import WorkerManager
 
-fetcher = ComWeiboFetcher(username=account.user, password=account.pwd)
+import webapp2
 
-login_ok = fetcher.check_cookie()
 
-if not login_ok:
-    print 'login failed.'
-    sys.exit()
+class MainPage(webapp2.RequestHandler):
 
-fans = []
-follows = []
+	def get(self,uid):
+		fetcher = ComWeiboFetcher(username=account.user, password=account.pwd)
 
-sw.main(fetcher, fetch_data='follows', store_path='./file/', uids=memstorage.users_id_moniterd, uids_storage=follows)
-sw.main(fetcher, fetch_data='fans', store_path='./file/', uids=memstorage.users_id_moniterd, uids_storage=fans)
+		login_ok = fetcher.check_cookie()
 
-friends_list = list(set(fans)|set(follows))
+		if not login_ok:
+			print 'login failed.'
+			sys.exit()
 
-print friends_list
-#host's weibo
-sw.main(fetcher,fetch_data='weibos',store_path='./file/',uids=memstorage.users_id_moniterd)
-#friends' weibo
-n_threads = 10
-n_paritions = 10
-len_partition = len(friends_list)/n_paritions
+		fans = []
+		follows = []
 
-worker_manager = WorkerManager(n_threads)
-for i in range(0,len(friends_list),len_partition):
-	worker_manager.add_job(sw.main, fetcher, fetch_data='weibos',store_path='./file/',
-		uids=friends_list[i:min(i+len_partition,len(friends_list))] )  
+		sw.main(fetcher, fetch_data='follows', store_path='./file/', uids=[uid], uids_storage=follows)
+		sw.main(fetcher, fetch_data='fans', store_path='./file/', uids=[uid], uids_storage=fans)
 
-worker_manager.wait_all_complete()
+		friends_list = list(set(fans)|set(follows))
+
+		print friends_list
+		#host's weibo
+		sw.main(fetcher,fetch_data='weibos',store_path='./file/',uids=[uid])
+		#friends' weibo
+		n_threads = 10
+		n_paritions = 10
+		len_partition = len(friends_list)/n_paritions
+
+		worker_manager = WorkerManager(n_threads)
+		for i in range(0,len(friends_list),len_partition):
+			worker_manager.add_job(sw.main, fetcher, fetch_data='weibos',store_path='./file/',
+				uids=friends_list[i:min(i+len_partition,len(friends_list))] )  
+
+		worker_manager.wait_all_complete()
+
+		self.response.headers['Content-Type'] = 'text/plain'
+		self.response.write('Hello, World!')
+
+
+application = webapp2.WSGIApplication([
+    ('/api/bark', MainPage),
+], debug=True)

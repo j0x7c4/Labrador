@@ -39,3 +39,4 @@ src/account.py
 exe/
 *.log
 *.csv
+app.yaml

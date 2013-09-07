@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-from common import write_message, logger
+from common import write_message
 from parser import ComWeibosParser, ComFollowsParser, ComFansParser,\
     ComInfosParser, ComRepostsParser, ComCommentsParser
 from pyquery import PyQuery as pq  # @UnresolvedImport
@@ -148,7 +148,7 @@ class ComWeiboCrawler(object):
         
         if not is_exist:
             msg = 'Not exist: %s.' %self.uid
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
             
             return
@@ -177,7 +177,7 @@ class ComWeiboCrawler(object):
         msg = ('Crawl user(%s)\'s weibos: total page=%s,'
                ' cost time=%s sec, connections=%s' 
                %(self.uid, num_pages, cost_time, self.fetcher.n_connections))
-        logger.info(msg)
+        #logger.info(msg)
         write_message(msg, self.window)
 
     def check_new_weibos(self):
@@ -203,7 +203,7 @@ class ComWeiboCrawler(object):
 
         if not is_exist:
             msg = 'Not exist: %s.' %self.uid
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
 
             return
@@ -220,7 +220,7 @@ class ComWeiboCrawler(object):
         msg = ('Crawl user(%s)\'s weibos: total page=%s,'
                ' cost time=%s sec, connections=%s'
                %(self.uid, num_pages, cost_time, self.fetcher.n_connections))
-        logger.info(msg)
+        #logger.info(msg)
         write_message(msg, self.window)
 
     def crawl_follows(self):
@@ -246,7 +246,7 @@ class ComWeiboCrawler(object):
         
         if not is_exist:
             msg = 'Not exist: %s.' %(self.uid)
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
             
             return
@@ -281,7 +281,7 @@ class ComWeiboCrawler(object):
         msg = ('Crawl user(%s)\'s follows: total page=%s,'
                ' cost time=%s sec, connections=%s' 
                %(self.uid, num_pages, cost_time, self.fetcher.n_connections))
-        logger.info(msg)
+        #logger.info(msg)
         write_message(msg, self.window)
 
     def crawl_fans(self):
@@ -306,7 +306,7 @@ class ComWeiboCrawler(object):
         
         if not is_exist:
             msg = 'Not exist: %s.' %(self.uid)
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
             return
         
@@ -340,7 +340,7 @@ class ComWeiboCrawler(object):
         msg = ('Crawl user(%s)\'s fans: total page=%s,'
                ' cost time=%s sec, connections=%s' 
                %(self.uid, num_pages, cost_time, self.fetcher.n_connections))
-        logger.info(msg)
+        #logger.info(msg)
         write_message(msg, self.window)
         
     def crawl_infos(self):
@@ -353,12 +353,12 @@ class ComWeiboCrawler(object):
         
         if not is_exist:
             msg = 'Not exist: %s.' %self.uid
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
             return
         
         msg = 'Crawl user(%s)\'s profile' %self.uid
-        logger.info(msg)
+        #logger.info(msg)
         write_message(msg, self.window)
         
         self.storage = FileStorage(self.uid, settings.MASK_INFO, self.store_path)
@@ -379,7 +379,7 @@ class ComWeiboCrawler(object):
         
         msg = ('Crawl user(%s)\'s infos: cost time=%s sec, connections=%s' 
                %(self.uid, cost_time, self.fetcher.n_connections))
-        logger.info(msg)
+        #logger.info(msg)
         write_message(msg, self.window)
 
     def crawl_msg_reposts(self):
@@ -403,7 +403,7 @@ class ComWeiboCrawler(object):
         
         if msg_id is None:
             msg = 'Not exist: %s.' %self.msg_url            
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
             
             return
@@ -431,7 +431,7 @@ class ComWeiboCrawler(object):
         msg = ('Crawl message(%s)\'s reposts: total page=%s,'
                ' cost time=%s sec, connections=%s' 
                %(self.msg_id, num_pages, cost_time, self.fetcher.n_connections))
-        logger.info(msg)
+        #logger.info(msg)
         write_message(msg, self.window) 
     
     def crawl_msg_comments(self):
@@ -454,7 +454,7 @@ class ComWeiboCrawler(object):
         
         if msg_id is None:
             msg = 'Not exist: %s.' %self.msg_url            
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
             
             return 
@@ -482,5 +482,5 @@ class ComWeiboCrawler(object):
         msg = ('Crawl message(%s)\'s comments: total page=%s,'
                ' cost time=%s sec, connections=%s' 
                %(self.msg_id, num_pages, cost_time, self.fetcher.n_connections))
-        logger.info(msg)
+        #logger.info(msg)
         write_message(msg, self.window)
