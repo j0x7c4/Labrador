@@ -3,7 +3,7 @@
 新浪微博的登录及cookie处理，来自爬盟, 部分修改
 '''
 
-from common import SOFT_PATH, write_message, logger
+from common import SOFT_PATH, write_message
 from pyquery import PyQuery as pq
 from rsa import transform
 import StringIO
@@ -94,7 +94,7 @@ class ComWeiboFetcher(object):
                     time.sleep(sec)
                 else:
                     msg = 'Exit incorrect. %s' % str(e)
-                    logger.info(msg)
+                    #logger.info(msg)
                     write_message(msg, self.window)
 
                     return None
@@ -183,7 +183,7 @@ class ComWeiboFetcher(object):
                 break
             except Exception, e:
                 msg = 'Get severtime error. %s' % str(e)
-                logger.info(msg)
+                #logger.info(msg)
                 write_message(msg, self.window)
 
         return result
@@ -258,7 +258,7 @@ class ComWeiboFetcher(object):
             f.close()
         except Exception, e:
             msg = 'Save verify code error. %s' % str(e)
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
 
             return
@@ -309,7 +309,7 @@ class ComWeiboFetcher(object):
             return text
         except Exception, e:
             msg = 'Error in do_login. %s' % str(e)
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
 
         return login_ok
@@ -330,7 +330,7 @@ class ComWeiboFetcher(object):
                 login_ok = True
         except Exception, e:
             msg = 'Error in redo_login. %s' % str(e)
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
 
         return login_ok
@@ -370,14 +370,14 @@ class ComWeiboFetcher(object):
 
                 if 'retcode=5' in login_html:
                     msg = 'password or account error.'
-                    logger.info(msg)
+                    #logger.info(msg)
                     write_message(msg, self.window)
 
                     return False
 
                 if 'retcode=4040' in login_html:
                     msg = 'do login too much times.'
-                    logger.info(msg)
+                    #logger.info(msg)
                     write_message(msg, self.window)
 
                     return False
@@ -385,12 +385,12 @@ class ComWeiboFetcher(object):
                 #是否需要手动输入验证码
                 if 1:
                     msg = 'Allow user type verify code. Take a rest and relogin or change another account.'
-                    logger.info(msg)
+                    #logger.info(msg)
                     write_message(msg, self.window)
                     pass
                 else:
                     msg = 'Enable input verify code, return failure.'
-                    logger.info(msg)
+                    #logger.info(msg)
                     write_message(msg, self.window)
 
                     return False
@@ -399,7 +399,7 @@ class ComWeiboFetcher(object):
                 if 'retcode=4049' in login_url:
                     for _ in range(3):
                         msg = 'need verify code.'
-                        logger.info(msg)
+                        #logger.info(msg)
                         write_message(msg, self.window)
 
                         verifycode_url = 'http://login.sina.com.cn/cgi/pin.php?r=%s&s=0&p=%s' % (
@@ -427,7 +427,7 @@ class ComWeiboFetcher(object):
                         else:
                             if 'retcode=2070' in login_html:
                                 msg = 'verify code:%s error.' % door
-                                logger.info(msg)
+                                #logger.info(msg)
                                 write_message(msg, self.window)
 
                                 continue
@@ -435,13 +435,13 @@ class ComWeiboFetcher(object):
                                 break
             except Exception, e:
                 msg = 'Error in login. %s' % str(e)
-                logger.info(msg)
+                #logger.info(msg)
                 write_message(msg, self.window)
 
                 login_ok = False
         except Exception, e:
             msg = 'Error in login. %s' % str(e)
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
 
         return login_ok
@@ -470,7 +470,7 @@ class ComWeiboFetcher(object):
             return e.code
         except Exception, e:
             msg = 'Error in get_content. %s' % str(e)
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
 
             content = ''
@@ -493,7 +493,7 @@ class ComWeiboFetcher(object):
 
         if not html:
             msg = 'need relogin.'
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
 
             self.clear_cookie(self.cookie_file)
@@ -516,7 +516,7 @@ class ComWeiboFetcher(object):
                 self.cj.save(self.cookie_file, True, True)
             except Exception, e:
                 msg = 'relogin failed. %s' % str(e)
-                logger.info(msg)
+                #logger.info(msg)
                 write_message(msg, self.window)
 
                 self.clear_cookie(self.cookie_file)
@@ -525,7 +525,7 @@ class ComWeiboFetcher(object):
 
         if 'refresh' in html and 'location.replace' in html:
             msg = 'cookie failure. Please re-login'
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
 
             self.clear_cookie(self.cookie_file)
@@ -533,7 +533,7 @@ class ComWeiboFetcher(object):
             return False
         elif u'您的帐号存在异常' in html and u'解除限制' in html:
             msg = u'账号被限制.'
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
 
             self.clear_cookie(self.cookie_file)
@@ -541,7 +541,7 @@ class ComWeiboFetcher(object):
             return False
         elif "$CONFIG['islogin'] = '0'" in html or "$CONFIG['islogin']='0'" in html:
             msg = u'Login failed'
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
 
             self.clear_cookie(self.cookie_file)
@@ -556,7 +556,7 @@ class ComWeiboFetcher(object):
             return True
         else:
             msg = u'Login failed'
-            logger.info(msg)
+            #logger.info(msg)
             write_message(msg, self.window)
 
             self.clear_cookie(self.cookie_file)
@@ -646,7 +646,7 @@ class ComWeiboFetcher(object):
                 else:
                     if not self.check_cookie():
                         msg = 'Error in check_user: login failed'
-                        logger.info(msg)
+                        #logger.info(msg)
                         write_message(msg, self.window)
 
                         return None
@@ -667,13 +667,13 @@ class ComWeiboFetcher(object):
                     time.sleep(sec)
                 else:
                     msg = 'Error in check_user: retry timeout. %s' % str(e)
-                    logger.info(msg)
+                    #logger.info(msg)
                     write_message(msg, self.window)
 
                     return None
             except Exception, e:
                 msg = 'Error in check_user: exit incorrect. %s' % str(e)
-                logger.info(msg)
+                #logger.info(msg)
                 write_message(msg, self.window)
 
                 return None

@@ -65,7 +65,7 @@ def main(fetcher, **kwargs):
                 msg += 'Having Crawled for %d seconds, take a rest: 1 hours' %dt
                 msg += '\n-------'
                 
-                logger.info(msg)
+                #logger.info(msg)
                 write_message(msg, window)
                 
                 time.sleep(3600)
@@ -123,7 +123,7 @@ def main(fetcher, **kwargs):
                 msg += 'Having Crawled for %d seconds, take a rest: 1 hours' %dt
                 msg += '\n-------'
                 
-                #logger.info(msg)
+                ##logger.info(msg)
                 write_message(msg, window)
                 
                 time.sleep(3600)
@@ -176,5 +176,5 @@ def main(fetcher, **kwargs):
     msg += 'Crawled [user|message]ids: %d, cost time: %d(d)-%d(h)-%d(m)-%d(s), connections: %d' %(n_ids, d, h, m, s, n_connections)
     
     write_message('=======', window)
-    #logger.info(msg)
+    ##logger.info(msg)
     write_message(msg, window)
