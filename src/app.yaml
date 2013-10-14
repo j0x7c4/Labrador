@@ -1,0 +1,29 @@
+application: weibo-labrador
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /api/bark/(\d+)
+  script: demo.app
+
+- url: /sport_model.py
+  static_files: sport_model.py
+  upload: /sport_model.py
+- url: /weather_model.py
+  static_files: weather_model.py
+  upload: /weather_model.py
+- url: /event_model.py
+  static_files: event_model.py
+  upload: /event_model.py
+- url: /stadium_model.py
+  static_files: stadium_model.py
+  upload: /stadium_model.py
+- url: /profile_model.py
+  static_files: profile_model.py
+  upload: /profile_model.py
+
+- url: /(.*\.txt)
+  static_files: /\1
+  upload: /(.*\.txt)
