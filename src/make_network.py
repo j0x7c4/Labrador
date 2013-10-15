@@ -17,11 +17,10 @@ class user:
 	def __hash__(self):
 		return int(self.uid)
 
-if __name__=="__main__":
-
+def create_graph ( host, **kwargs ):
 	G = nx.Graph()
-	host = user(dict(zip(['uid','nickname','sex','addr','daren','verified','vip','n_follows','n_fans','n_weibos','intro','follow_from'],
-		['1881798702','Izzzzzie','女','上海 黄浦区','','','','171','145','437'	,'','新浪微博手机版'])))
+
+
 	user_list={host.uid:host.info}
 	#add node
 	G.add_node(host)
@@ -67,5 +66,13 @@ if __name__=="__main__":
 
 	print "#Node:%d\n"%(len(G.nodes()))
 	print "#Edge:%d\n"%(len(G.edges()))
-	nx.write_gml(G,'./user_network.gml')
+	return G
+
+if __name__=="__main__":
+	host = user(dict(zip(['uid','nickname','sex','addr','daren','verified','vip','n_follows','n_fans','n_weibos','intro','follow_from'],
+		['1881798702','Izzzzzie','女','上海 黄浦区','','','','171','145','437'	,'','新浪微博手机版'])))
+	G = create_graph(host)
+	save_file = host.uid+".gml"
+	nx.write_gml(G,save_file)
+
 
