@@ -3,6 +3,7 @@ import make_network as mn
 import networkx as nx
 from make_network import user
 import os
+import sys
 
 if __name__ == "__main__":
 	
@@ -14,5 +15,6 @@ if __name__ == "__main__":
 		G = nx.read_gml(file_name)
 	except:
 		G = mn.create_graph(host)
+		nx.write_gml(G,file_name)
 	
-	
+
